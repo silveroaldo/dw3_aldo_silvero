@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\HolaController;
+use Illuminate\Routing\RouteUri;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,15 +21,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
- 
+
 Route::get('/home', [HomeController::class, 'index']);
 
-Route::get('pruebas/index',[HolaController::class,'index']); 
-
-Route::get('clientes/index',[ClienteController::class,'index'])->name('index');  
-Route::get('clientes/formulario',[ClienteController::class,'formulario']);  
+Route::get('pruebas/index',[HolaController::class,'index']);
+Route::get('clientes/index', [ClienteController::class, 'index'])->name('clientes.index');
+Route::get('/buscar', [ClienteController::class, 'buscar'])->name('buscar');
+Route::get('clientes/formulario',[ClienteController::class,'formulario'])->name('clientes.formulario');
 Route::post('/crear', [ClienteController::class, 'crear'])->name('crear');
 Route::get('/eliminar/{id}',[ClienteController::class,'eliminar'])->name('eliminar');
 
 Route::get('/editar/{id}',[ClienteController::class,'editar'])->name('editar');
 Route::post('/actualizar/{id}',[ClienteController::class,'actualizar'])->name('actualizar');
+Route::get('clientes/{cliente}', [ClienteController::class, 'show'])->name('clientes.show');
+
